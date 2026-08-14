@@ -42,8 +42,20 @@ void main() {
         
 
       case '2':
-        print('\nListar productos');
-        break;
+  print('\n===== LISTA DE PRODUCTOS =====');
+
+  if (productos.isEmpty) {
+    print('No hay productos registrados.');
+  } else {
+    for (int i = 0; i < productos.length; i++) {
+      print('\nProducto #${i + 1}');
+      print('Nombre: ${productos[i]['nombre']}');
+      print('Precio: \$${productos[i]['precio']}');
+      print('Cantidad disponible: ${productos[i]['cantidad']}');
+    }
+  }
+
+  break;
 
       case '3':
         print('\nActualizar producto');
