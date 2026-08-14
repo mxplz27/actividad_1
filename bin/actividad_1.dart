@@ -18,19 +18,51 @@ void main() {
     String? opcion = stdin.readLineSync();
 
     switch (opcion) {
-      case '1':
-     
-  stdout.write('Nombre del producto: ');
-  String nombre = stdin.readLineSync() ?? '';
+    case '1':
+  print('\n===== AGREGAR PRODUCTO =====');
 
-  stdout.write('Precio: ');
-  double precio = double.parse(stdin.readLineSync()!);
+  String nombre = '';
 
-  stdout.write('Cantidad disponible: ');
-  int cantidad = int.parse(stdin.readLineSync()!);
+  // Validar nombre
+  while (nombre.trim().isEmpty) {
+    stdout.write('Nombre del producto: ');
+    nombre = stdin.readLineSync() ?? '';
+
+    if (nombre.trim().isEmpty) {
+      print('El nombre no puede estar vacío.');
+    }
+  }
+
+  double? precio;
+
+  // Validar precio
+  while (precio == null || precio < 0) {
+    stdout.write('Precio: ');
+    String entradaPrecio = stdin.readLineSync() ?? '';
+
+    precio = double.tryParse(entradaPrecio);
+
+    if (precio == null || precio < 0) {
+      print('Ingrese un precio válido.');
+    }
+  }
+
+  int? cantidad;
+
+  // Validar cantidad
+  while (cantidad == null || cantidad < 0) {
+    stdout.write('Cantidad disponible: ');
+    String entradaCantidad = stdin.readLineSync() ?? '';
+
+    cantidad = int.tryParse(entradaCantidad);
+
+    if (cantidad == null || cantidad < 0) {
+      print('Ingrese una cantidad válida.');
+    }
+  }
 
   Map<String, dynamic> producto = {
-    'nombre': nombre,
+    'nombre': nombre.trim(),
     'precio': precio,
     'cantidad': cantidad,
   };
