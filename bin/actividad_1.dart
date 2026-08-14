@@ -135,8 +135,39 @@ void main() {
   break;
 
       case '4':
-        print('\nEliminar producto');
-        break;
+       
+  print('\n===== ELIMINAR PRODUCTO =====');
+
+  if (productos.isEmpty) {
+    print('No hay productos registrados para eliminar.');
+    break;
+  }
+
+  // Mostrar productos disponibles
+  for (int i = 0; i < productos.length; i++) {
+    print(
+      '${i + 1}. ${productos[i]['nombre']} - '
+      '\$${productos[i]['precio']} - '
+      'Cantidad: ${productos[i]['cantidad']}',
+    );
+  }
+
+  stdout.write('\nIngrese el número del producto a eliminar: ');
+  String entrada = stdin.readLineSync() ?? '';
+  int? numero = int.tryParse(entrada);
+
+  // Validar número
+  if (numero == null || numero < 1 || numero > productos.length) {
+    print('Número de producto inválido.');
+    break;
+  }
+
+  String nombre = productos[numero - 1]['nombre'];
+
+  productos.removeAt(numero - 1);
+
+  print('\nProducto "$nombre" eliminado correctamente.');
+  break;
 
       case '5':
         continuar = false;
