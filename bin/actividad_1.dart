@@ -19,8 +19,27 @@ void main() {
 
     switch (opcion) {
       case '1':
-        print('\nAgregar producto');
-        break;
+     
+  stdout.write('Nombre del producto: ');
+  String nombre = stdin.readLineSync() ?? '';
+
+  stdout.write('Precio: ');
+  double precio = double.parse(stdin.readLineSync()!);
+
+  stdout.write('Cantidad disponible: ');
+  int cantidad = int.parse(stdin.readLineSync()!);
+
+  Map<String, dynamic> producto = {
+    'nombre': nombre,
+    'precio': precio,
+    'cantidad': cantidad,
+  };
+
+  productos.add(producto);
+
+  print('\nProducto agregado correctamente.');
+  break;
+        
 
       case '2':
         print('\nListar productos');
