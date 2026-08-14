@@ -58,8 +58,81 @@ void main() {
   break;
 
       case '3':
-        print('\nActualizar producto');
-        break;
+  print('\n===== ACTUALIZAR PRODUCTO =====');
+
+  if (productos.isEmpty) {
+    print('No hay productos registrados para actualizar.');
+    break;
+  }
+
+  // Mostrar productos disponibles
+  for (int i = 0; i < productos.length; i++) {
+    print(
+      '${i + 1}. ${productos[i]['nombre']} - '
+      '\$${productos[i]['precio']} - '
+      'Cantidad: ${productos[i]['cantidad']}',
+    );
+  }
+
+  stdout.write('\nIngrese el número del producto a actualizar: ');
+  String entrada = stdin.readLineSync() ?? '';
+  int? numero = int.tryParse(entrada);
+
+  // Validar número de producto
+  if (numero == null || numero < 1 || numero > productos.length) {
+    print('Número de producto inválido.');
+    break;
+  }
+
+  // Obtener el producto seleccionado
+  Map<String, dynamic> producto = productos[numero - 1];
+
+  print('\nProducto seleccionado: ${producto['nombre']}');
+
+  // Actualizar nombre
+  stdout.write(
+    'Nuevo nombre (Enter para conservar "${producto['nombre']}"): ',
+  );
+  String nuevoNombre = stdin.readLineSync() ?? '';
+
+  if (nuevoNombre.trim().isNotEmpty) {
+    producto['nombre'] = nuevoNombre.trim();
+  }
+
+  // Actualizar precio
+  stdout.write(
+    'Nuevo precio (Enter para conservar ${producto['precio']}): ',
+  );
+  String nuevoPrecio = stdin.readLineSync() ?? '';
+
+  if (nuevoPrecio.trim().isNotEmpty) {
+    double? precio = double.tryParse(nuevoPrecio);
+
+    if (precio != null && precio >= 0) {
+      producto['precio'] = precio;
+    } else {
+      print('Precio inválido. Se conservará el precio anterior.');
+    }
+  }
+
+  // Actualizar cantidad
+  stdout.write(
+    'Nueva cantidad (Enter para conservar ${producto['cantidad']}): ',
+  );
+  String nuevaCantidad = stdin.readLineSync() ?? '';
+
+  if (nuevaCantidad.trim().isNotEmpty) {
+    int? cantidad = int.tryParse(nuevaCantidad);
+
+    if (cantidad != null && cantidad >= 0) {
+      producto['cantidad'] = cantidad;
+    } else {
+      print('Cantidad inválida. Se conservará la cantidad anterior.');
+    }
+  }
+
+  print('\nProducto actualizado correctamente.');
+  break;
 
       case '4':
         print('\nEliminar producto');
